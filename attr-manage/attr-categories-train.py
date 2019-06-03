@@ -33,18 +33,21 @@ label_path = './data/cate_attr_label.csv'
 
 # pad image to fixed size
 def pad_image(image, target_size):
-    iw, ih = image.size  # 原始图像的尺寸
-    w, h = target_size  # 目标图像的尺寸
-    scale = min(float(w) / float(iw), float(h) / float(ih))  # 转换的最小比例
- 
-    # 保证长或宽，至少一个符合目标图像的尺寸
+	# origin size
+    iw, ih = image.size 
+	# target size
+    w, h = target_size  
+	# get scale
+    scale = min(float(w) / float(iw), float(h) / float(ih))
+	# new width & height
     nw = int(iw * scale)
     nh = int(ih * scale)
- 
-    image = image.resize((nw, nh), Image.BICUBIC)  # 缩小图像
-    new_image = Image.new('RGB', target_size, (128, 128, 128))  # 生成灰色图像
-    # // 为整数除法，计算图像的位置
-    new_image.paste(image, ((w - nw) // 2, (h - nh) // 2))  # 将图像填充为中间图像，两侧为灰色的样式
+	
+	# resize
+    image = image.resize((nw, nh), Image.BICUBIC)
+	# grey padding
+    new_image = Image.new('RGB', target_size, (128, 128, 128))
+    new_image.paste(image, ((w - nw) // 2, (h - nh) // 2))
  
     return new_image
 

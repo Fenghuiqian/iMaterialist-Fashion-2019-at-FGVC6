@@ -37,18 +37,16 @@ len(os.listdir(train_path)), len(os.listdir(test_path))
 # extract bbox from mask 
 def extract_bboxes(mask):
     #Bounding box. 
-    #返回mask元素值为1的横纵坐标
     horizontal_indicies = np.where(np.any(mask, axis=0))[0]
     vertical_indicies = np.where(np.any(mask, axis=1))[0]
     if horizontal_indicies.shape[0]:
         x1, x2 = horizontal_indicies[[0, -1]]
         y1, y2 = vertical_indicies[[0, -1]]
-        #x2和y2不应该作为box的一部分. 所以各自加1.
+        # edge of instance management
         x2 += 1
         y2 += 1
     else:
-        #该instance没有mask. 可能是由于缩放和裁剪导致的
-        #将bbox设为0
+        # no mask image, set bbox=0,0,0,0
         x1, x2, y1, y2 = 0, 0, 0, 0
     width = x2-x1
     height = y2-y1
@@ -65,7 +63,6 @@ def rle_decode(rle_str, mask_shape, mask_dtype):
     return mask.reshape(mask_shape[::-1], order='F')
 	
 	
-
 # create attr-annotation info
 df_annotation = pd.read_csv(annotation_path)
 attributed_img_index = [] 
