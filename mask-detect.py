@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-
 import numpy as np
 import os
 import six.moves.urllib as urllib
@@ -9,13 +8,13 @@ import sys
 import tarfile
 import tensorflow as tf
 import zipfile
+import PIL
 from distutils.version import StrictVersion
 from collections import defaultdict
 from io import StringIO
 from matplotlib import pyplot as plt
-from PIL import Image
 import cv2
-import PIL
+from PIL import Image
 import pandas as pd
 sys.path.append("./object/")
 from object_detection.utils import ops as utils_ops
@@ -107,8 +106,6 @@ def rle_encode(mask):
     return rle
 
 
-
-
 # Detection
 
 img_list = glob("./data/test/*.jpg")
@@ -152,8 +149,6 @@ for image_path in img_list:
         img_dict["EncodedPixels"] = "1 1"
         img_dict["ImageId"] = image_path[12:]
         img_dict["ClassId"] = 22
-
-
 
 
 submit = pd.DataFrame.from_records(result, columns=["ImageId", "EncodedPixels", "ClassId"])
