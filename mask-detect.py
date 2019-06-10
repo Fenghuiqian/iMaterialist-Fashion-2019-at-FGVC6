@@ -27,7 +27,7 @@ get_ipython().run_line_magic('matplotlib', 'inline')
 
 PATH_TO_FROZEN_GRAPH = "./models/frozen_inference_graph.pb"
 PATH_TO_LABELS = os.path.join('./', 'imaterialist_fashion_label_map.pbtxt')
-
+CROP_IMG_PATH = "./cropped_img/"
 
 detection_graph = tf.Graph()
 with detection_graph.as_default():
@@ -144,6 +144,13 @@ for image_path in img_list:
         img_dict["ImageId"] = image_path[12:]
         img_dict["ClassId"] = output_dict["detection_classes"][num]
         result.append(img_dict)
+		
+		# save bbox cropped  images
+        bbox_img_coor = output_dict["detection_boxes"][num]
+        y_min, x_min, y_max, x_max = bbox_img_coor[0] * target_height, bbox_img_coor[1] * target_width,bbox_img_coor[2] * target_height，bbox_img_coor[3] * target_width
+        bbox_croped_img = image.crop(box=[x_min, y_min, x_max, y_max])
+        bbox_croped_img.save(CROP_IMG_PATH +"%s" % num + image_path[34:])
+		
     # handle no object imgs, the competetion required
     if output_dict["num_detections"] == 0:
         img_dict["EncodedPixels"] = "1 1"
