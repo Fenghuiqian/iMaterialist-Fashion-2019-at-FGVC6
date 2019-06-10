@@ -147,7 +147,7 @@ for image_path in img_list:
 		
 		# save bbox cropped  images
         bbox_img_coor = output_dict["detection_boxes"][num]
-        y_min, x_min, y_max, x_max = bbox_img_coor[0] * target_height, bbox_img_coor[1] * target_width,bbox_img_coor[2] * target_height，bbox_img_coor[3] * target_width
+        y_min, x_min, y_max, x_max = bbox_img_coor[0] * target_height, bbox_img_coor[1] * target_width, bbox_img_coor[2] * target_height, bbox_img_coor[3] * target_width
         bbox_croped_img = image.crop(box=[x_min, y_min, x_max, y_max])
         bbox_croped_img.save(CROP_IMG_PATH +"%s" % num + image_path[34:])
 		
