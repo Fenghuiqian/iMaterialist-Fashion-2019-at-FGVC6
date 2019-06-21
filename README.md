@@ -9,4 +9,4 @@ Fine-grained segmentation task for fashion and apparel
 6. Run attr-manage/attr-categories-train.py to train the attribute classification model.
 7. Run attr-manage/attr-predict.py to predict attribute result for the object bbox croped images in step 4.
 # Notes
-LeaderBoard Top16%(39/236).
+LeaderBoard Top16%(43/242).
