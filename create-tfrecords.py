@@ -285,10 +285,10 @@ for each_image_id in df_annotation['ImageId'].unique():
     image_dir = train_path
     # tf example
     key, tf_example, num_annotations_skipped = create_tf_example(image_dict,
-														  annotations_list,
-														  image_dir,
-														  category_index,
-														  include_masks=True)
+							  annotations_list,
+							  image_dir,
+							  category_index,
+							  include_masks=True)
     
     if image_id < 40000:
         # write train tf records ,train nums=40000
@@ -300,10 +300,10 @@ for each_image_id in df_annotation['ImageId'].unique():
         print(image_id)
     image_id +=1
 
+train_writer.close()
+val_writer.close()
 t2 = time.time()
 print('cost',(t2-t1)/3600, 'h')
-
-
 
 
 
